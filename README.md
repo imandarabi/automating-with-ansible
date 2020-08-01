@@ -1,6 +1,7 @@
 # automating-with-ansible
 
 Code samples for videos in youtube.com === >  https://www.youtube.com/playlist?list=PLpWlJSEceWjV1gYrQ3EXHU7zOpCCwHAiF
+
 Code samples for videos in aparat.com === > https://www.aparat.com/imandarabi/
 
 slides: https://www.slideshare.net/imand/automating-with-ansible-part-a
