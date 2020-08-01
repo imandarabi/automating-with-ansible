@@ -1,0 +1,13 @@
+packages:
+  - vsftpd
+  - htop
+  - nginx
+
+my_directory_1: /var/ftp/pub/mydir1
+my_directory_2: /var/ftp/pub/mydir2
+
+text: text_file.txt
+
+system_owner: iman.darabi@gmail.com
+
+virtual_host: "myserver.local"

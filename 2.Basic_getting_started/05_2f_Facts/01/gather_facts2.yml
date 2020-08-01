@@ -1,0 +1,12 @@
+---
+ - name: Gather Facts 
+   hosts: localhost 
+   tasks:
+   - name: Facts
+     setup:
+#   - name: Dump
+#     delegate_to: localhost
+     run_once: true
+     copy:
+       content: "{{ hostvars[inventory_hostname] | to_nice_json }}"
+       dest: setup-dump.json

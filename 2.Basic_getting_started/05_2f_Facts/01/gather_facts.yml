@@ -1,0 +1,16 @@
+---
+ - name: Gather Facts 
+   hosts: all
+   tasks:
+     - name: gather facts
+       setup:
+         gather_subset:
+           - network
+         register: setup_res
+
+     - name: copy contents
+       copy:
+         content: "{{ setup_res | combine(cmd_res) | to_nice_json }}"
+         dest: setup-dump.json
+       delegate_to: localhost
+    

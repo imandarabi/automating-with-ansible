@@ -1,0 +1,7 @@
+---
+- name: Remove "{{ packages }}" packages
+  apt:
+    name: "{{ packages }}"
+    state: absent
+
+

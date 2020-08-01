@@ -1,0 +1,7 @@
+---
+- name: update hosts (( apt.yml, line 2 ))
+  hosts: all
+  tasks:
+  - name: Run the equivalent of "apt-get update" as a separate step (( apt.yml, line:6 ))
+    apt:
+      update_cache: yes
