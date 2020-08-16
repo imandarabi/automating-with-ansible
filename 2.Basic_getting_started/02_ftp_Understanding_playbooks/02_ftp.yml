@@ -1,0 +1,27 @@
+---
+- name: deploy vsftpd
+  hosts: all
+
+  tasks:
+  - name: install vsftpd
+    package:
+      name: vsftpd
+      state: latest
+
+  - name: enable vsftpd
+    service: name=vsftpd enabled=true
+
+  - name: create directories if they don't exist
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+      - /var/ftp/pub/mydir1
+      - /var/ftp/pub/mydir2
+
+  - name: create readme file
+    copy:
+      content: "welcome to my friendly server 1\n"
+      dest: /var/ftp/pub/mydir1/README
+      force: no
+      mode: 0444

@@ -1,0 +1,58 @@
+---
+- name: deploy vsftpd
+  hosts: all
+
+  tasks:
+  - name: install vsftpd
+    package:
+      name: vsftpd
+      state: latest
+
+  - name: enable vsftpd
+    service: name=vsftpd enabled=true
+
+  - name: create directories if they don't exist
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+      - /var/ftp/pub/mydir1
+      - /var/ftp/pub/mydir2
+
+  - name: create readme file
+    copy:
+      content: "welcome to my friendly server\n"
+      dest: /var/ftp/pub/mydir1/README
+      force: no
+      mode: 0444
+
+  - name: scp
+    copy:
+      src: sample-ftp.txt
+      dest: /var/ftp/pub/mydir2/
+
+  - name: change inline data of content (( lineinfile module ))
+    lineinfile:
+      dest: /var/ftp/pub/mydir2/sample-ftp.txt
+      line: "ADDED LINE 1"      
+      insertbefore: BOF
+
+  - name: change inline data of content (( lineinfile module ))
+    lineinfile:
+      dest: /var/ftp/pub/mydir2/sample-ftp.txt
+      line: "THIS TEXT INSERTED BEFORE line3"      
+      insertbefore: "line 3"
+
+
+  - name: delete files and directories
+    file:
+      dest: "{{ item }}"
+      state: absent
+    with_items:
+      - /var/ftp/pub/mydir1/README
+      - /var/ftp
+
+  - name: Remove a list of packages
+    apt:
+      name: vsftpd
+      state: absent

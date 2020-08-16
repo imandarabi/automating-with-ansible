@@ -1,0 +1,9 @@
+---
+# tasks file for roles/nginx
+
+- include: install-packages.yml
+
+- name: Configure nginx web server
+  import_tasks: nginx-config.yml
+  
+#  - include: remove-packages.yml

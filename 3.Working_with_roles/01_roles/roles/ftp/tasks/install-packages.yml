@@ -1,0 +1,8 @@
+---
+- name: install "{{ packages }}"
+  package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: enable vsftpd
+  service: name=vsftpd enabled=true

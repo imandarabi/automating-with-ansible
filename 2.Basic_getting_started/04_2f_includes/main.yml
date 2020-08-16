@@ -1,0 +1,50 @@
+---
+- name: deploy vsftpd
+  hosts: all
+  vars_files:
+   - variables.yml
+   
+  tasks:
+  - include: install-packages.yml
+  
+  - name: create directories if they don't exist
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+      - "{{ my_directory_1 }}"
+      - "{{ my_directory_2 }}"
+
+  - name: create readme file
+    copy:
+      content: "welcome to my friendly server\n"
+      dest: "{{ my_directory_1 }}/README"
+      force: no
+      mode: 0444
+
+  - name: scp
+    copy:
+      src: "{{ text }}"
+      dest: "{{ my_directory_2 }}" 
+
+  - name: change inline data of content (( lineinfile module ))
+    lineinfile:
+      path:  "{{ my_directory_2 }}/{{ text }}"
+      line: "ADDED LINE 1"      
+      insertbefore: BOF
+
+  - name: change inline data of content (( lineinfile module ))
+    lineinfile:
+      path: "{{ my_directory_2 }}/{{ text }}"
+      line: "THIS TEXT INSERTED BEFORE line3"      
+      insertbefore: "line 3"
+
+  - name: delete files and directories
+    file:
+      path: "{{ item }}"
+      state: absent
+    with_items:
+      - "{{ my_directory_1 }}/README"
+      - /var/ftp
+
+  - include: remove-packages.yml

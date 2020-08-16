@@ -1,0 +1,35 @@
+---
+- name: update hosts (( apt.yml, line 2 ))
+  hosts: all
+  tasks:
+  - name: Run the equivalent of "apt-get update" as a separate step (( apt.yml, line:6 ))
+    apt:
+      update_cache: yes
+
+
+  - name: install package "htop"
+    apt:
+      name: htop
+
+  - name: Remove "htop" package
+    apt:
+      name: htop
+      state: absent
+
+
+
+
+
+- name: Install new packages
+  hosts: all
+  vars:
+    packages:
+     - htop
+     - atop
+     - tcpdump
+     - iftop
+  tasks:  
+    - name: Install a list of "{{ packages }}"
+      apt:
+        name: "{{ packages }}"
+
