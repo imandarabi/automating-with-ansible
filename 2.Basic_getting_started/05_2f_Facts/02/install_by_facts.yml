@@ -1,6 +1,5 @@
 ---
-- hosts: node2.ansible.local
-
+- hosts: all
   tasks:
   - name: Install nginx
     apt: 

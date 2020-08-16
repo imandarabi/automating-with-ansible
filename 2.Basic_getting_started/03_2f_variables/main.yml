@@ -35,13 +35,13 @@
 
   - name: change inline data of content (( lineinfile module ))
     lineinfile:
-      path:  "{{ my_directory_2 }}/{{ text }}"
+      dest:  "{{ my_directory_2 }}/{{ text }}"
       line: "ADDED LINE 1"      
       insertbefore: BOF
 
   - name: change inline data of content (( lineinfile module ))
     lineinfile:
-      path: "{{ my_directory_2 }}/{{ text }}"
+      dest: "{{ my_directory_2 }}/{{ text }}"
       line: "THIS TEXT INSERTED BEFORE line3"      
       insertbefore: "line 3"
 
