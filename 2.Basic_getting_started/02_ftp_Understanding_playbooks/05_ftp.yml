@@ -33,20 +33,20 @@
 
   - name: change inline data of content (( lineinfile module ))
     lineinfile:
-      path: /var/ftp/pub/mydir2/sample-ftp.txt
+      dest: /var/ftp/pub/mydir2/sample-ftp.txt
       line: "ADDED LINE 1"      
       insertbefore: BOF
 
   - name: change inline data of content (( lineinfile module ))
     lineinfile:
-      path: /var/ftp/pub/mydir2/sample-ftp.txt
+      dest: /var/ftp/pub/mydir2/sample-ftp.txt
       line: "THIS TEXT INSERTED BEFORE line3"      
       insertbefore: "line 3"
 
 
   - name: delete files and directories
     file:
-      path: "{{ item }}"
+      dest: "{{ item }}"
       state: absent
     with_items:
       - /var/ftp/pub/mydir1/README

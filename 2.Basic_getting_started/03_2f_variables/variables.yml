@@ -2,7 +2,7 @@ packages:
   - vsftpd
   - htop
 
-my_directory_1: /var/ftp/pub/mydir1
-my_directory_2: /var/ftp/pub/mydir2
+my_directory_1: /var/mdir1 #/var/ftp/pub/mydir1
+my_directory_2: /var/mdir2 #/var/ftp/pub/mydir2
 
 text: text_file.txt

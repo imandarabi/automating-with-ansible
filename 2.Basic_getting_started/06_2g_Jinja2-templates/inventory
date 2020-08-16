@@ -1,3 +1,4 @@
 [all]
-#node1.ansible.local
+node1.ansible.local
 node2
+#c2

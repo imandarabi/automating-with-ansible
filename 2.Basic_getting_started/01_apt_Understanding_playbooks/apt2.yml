@@ -6,8 +6,10 @@
     apt:
       update_cache: yes
 
-#  - name: Upgrade all packages to the latest version
-#    apt:
-#      name: "*"
-#      state: latest
-#      force_apt_get: True
+- name: upgrade hosts
+  hosts: all
+  tasks:
+   - name: Run the equivalent of "apt update"
+     apt:
+       upgrade: dist
+     
