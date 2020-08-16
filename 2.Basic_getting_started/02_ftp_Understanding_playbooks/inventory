@@ -1,5 +1,11 @@
 [all]
+<<<<<<< HEAD
 #node1.ansible.local
 #node2.ansible.local
 c1
+=======
+node1.ansible.local
+node2.ansible.local
+
+>>>>>>> d14eca708a5b1191f0034116deed92903afa41aa
 
