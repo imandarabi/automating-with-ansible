@@ -1,0 +1,11 @@
+---
+- name: install "{{ packages }}"
+  package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: enable vsftpd
+  service: name=vsftpd enabled=true
+
+- name: enable nginx
+  service: name=nginx enabled=true

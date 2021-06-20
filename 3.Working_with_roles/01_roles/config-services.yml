@@ -1,21 +1,20 @@
 ---
-- hosts: all
+- hosts: node1.ansible.local
 
   tasks:
     - name: deploy ftp service
       import_role:
         name: ftp
-
     - name: deploy nginx and configure virtual host
       import_role:
         name: nginx
       vars:
         virtual_host: "{{ inventory_hostname }}"
 
-    - name: configure fqdn and hostname
-      import_role:
-        name: holms.fqdn
-      vars:
-        hostname: "myHost"
-        fqdn: "myHost.localdomain"         
+#    - name: configure fqdn and hostname
+#      import_role:
+#        name: holms.fqdn
+#      vars:
+#        hostname: "myHost"
+#        fqdn: "myHost.localdomain"         
 

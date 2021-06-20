@@ -1,0 +1,33 @@
+---
+# tasks file for nginx configuration
+
+- name: configure new virtual host
+  template:
+    src: http.j2
+    dest: /etc/nginx/sites-available/{{ virtual_host }}
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create root directory /var/www/{{ virtual_host }}
+  file:
+    path: /var/www/{{ virtual_host }}
+    state: directory
+    owner: root
+    group: root
+    
+- name: copy index.html
+  copy:
+    src: index.html
+    dest: /var/www/{{ virtual_host }}
+
+- name: create link
+  file:
+    src: /etc/nginx/sites-available/{{ virtual_host }}
+    dest: /etc/nginx/sites-enabled/{{ virtual_host }}
+    state: link
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted

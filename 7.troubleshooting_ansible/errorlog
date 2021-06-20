@@ -1,0 +1,115 @@
+2021-06-18 18:58:32,151 p=335702 u=vagrant n=ansible | [WARNING]: Unable to parse /home/vagrant/automating-with-
+ansible/7.troubleshooting_ansible/inventory as an inventory source
+
+2021-06-18 18:58:32,152 p=335702 u=vagrant n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2021-06-18 18:58:32,154 p=335702 u=vagrant n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
+localhost does not match 'all'
+
+2021-06-18 18:58:32,672 p=335702 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  found a tab character that violate indentation
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/handlers.yml': line 11, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        src: /tmp/index.html
+	dest: /var/www/html/index.html
+^ here
+There appears to be a tab character at the start of the line.
+
+YAML does not use tabs for formatting. Tabs should be replaced with spaces.
+
+For example:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+#    ^--- there is a tab there.
+
+Should be written as:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+# ^--- all spaces here.
+
+2021-06-18 18:58:44,457 p=335722 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  found a tab character that violate indentation
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/handlers.yml': line 11, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        src: /tmp/index.html
+	dest: /var/www/html/index.html
+^ here
+There appears to be a tab character at the start of the line.
+
+YAML does not use tabs for formatting. Tabs should be replaced with spaces.
+
+For example:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+#    ^--- there is a tab there.
+
+Should be written as:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+# ^--- all spaces here.
+
+2021-06-18 18:59:25,660 p=335771 u=vagrant n=ansible | PLAY [copy new index.html] *************************************************************************
+2021-06-18 18:59:25,724 p=335771 u=vagrant n=ansible | TASK [Gathering Facts] *****************************************************************************
+2021-06-18 18:59:33,080 p=335771 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-18 18:59:33,338 p=335771 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-18 18:59:33,369 p=335771 u=vagrant n=ansible | TASK [install nginx] *******************************************************************************
+2021-06-18 18:59:37,838 p=335771 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-18 18:59:37,966 p=335771 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-18 18:59:38,004 p=335771 u=vagrant n=ansible | TASK [copy index.html] *****************************************************************************
+2021-06-18 18:59:40,714 p=335771 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-18 18:59:40,722 p=335771 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-18 18:59:40,749 p=335771 u=vagrant n=ansible | TASK [copy nothing] ********************************************************************************
+2021-06-18 18:59:40,974 p=335771 u=vagrant n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2021-06-18 18:59:40,984 p=335771 u=vagrant n=ansible | fatal: [node1.ansible.local]: FAILED! => {"changed": false, "msg": "Could not find or access '/tmp/nothing' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2021-06-18 18:59:41,030 p=335771 u=vagrant n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2021-06-18 18:59:41,032 p=335771 u=vagrant n=ansible | fatal: [node2.ansible.local]: FAILED! => {"changed": false, "msg": "Could not find or access '/tmp/nothing' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2021-06-18 18:59:41,038 p=335771 u=vagrant n=ansible | PLAY RECAP *****************************************************************************************
+2021-06-18 18:59:41,039 p=335771 u=vagrant n=ansible | node1.ansible.local        : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2021-06-18 18:59:41,040 p=335771 u=vagrant n=ansible | node2.ansible.local        : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2021-06-19 18:59:58,120 p=353466 u=vagrant n=ansible | playbook: handlers.yml
+2021-06-19 19:00:15,304 p=353496 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  mapping values are not allowed in this context
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/handlers.yml': line 4, column 18, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  hosts: all
+   force_handlers: yes
+                 ^ here
+
+2021-06-19 19:07:31,451 p=353871 u=vagrant n=ansible | PLAY [copy new index.html] *************************************************************************
+2021-06-19 19:07:43,430 p=353871 u=vagrant n=ansible | Perform task: TASK: Gathering Facts (N)o/(y)es/(c)ontinue: *****************************************
+2021-06-19 19:07:43,457 p=353871 u=vagrant n=ansible | TASK [Gathering Facts] *****************************************************************************
+2021-06-19 19:07:50,090 p=353871 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-19 19:07:50,316 p=353871 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-19 19:08:02,427 p=353871 u=vagrant n=ansible | Perform task: TASK: install nginx (N)o/(y)es/(c)ontinue: *******************************************
+2021-06-19 19:08:02,463 p=353871 u=vagrant n=ansible | TASK [install nginx] *******************************************************************************
+2021-06-19 19:08:06,012 p=353871 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-19 19:08:06,130 p=353871 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-19 19:08:17,195 p=353871 u=vagrant n=ansible | Perform task: TASK: copy index.html (N)o/(y)es/(c)ontinue: *****************************************
+2021-06-19 19:08:17,232 p=353871 u=vagrant n=ansible | TASK [copy index.html] *****************************************************************************
+2021-06-19 19:08:19,617 p=353871 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-19 19:08:19,641 p=353871 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-19 19:08:21,673 p=353871 u=vagrant n=ansible | Perform task: TASK: copy nothing (N)o/(y)es/(c)ontinue: ********************************************
+2021-06-19 19:08:21,715 p=353871 u=vagrant n=ansible | TASK [copy nothing] ********************************************************************************
+2021-06-19 19:08:22,073 p=353871 u=vagrant n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2021-06-19 19:08:22,076 p=353871 u=vagrant n=ansible | fatal: [node1.ansible.local]: FAILED! => {"changed": false, "msg": "Could not find or access '/tmp/nothing' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2021-06-19 19:08:22,136 p=353871 u=vagrant n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2021-06-19 19:08:22,138 p=353871 u=vagrant n=ansible | fatal: [node2.ansible.local]: FAILED! => {"changed": false, "msg": "Could not find or access '/tmp/nothing' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2021-06-19 19:08:22,145 p=353871 u=vagrant n=ansible | PLAY RECAP *****************************************************************************************
+2021-06-19 19:08:22,147 p=353871 u=vagrant n=ansible | node1.ansible.local        : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2021-06-19 19:08:22,149 p=353871 u=vagrant n=ansible | node2.ansible.local        : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   

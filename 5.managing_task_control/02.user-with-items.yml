@@ -1,0 +1,21 @@
+- name: create users
+  hosts: localhost
+  connection: local 
+  tasks:
+
+  - name: create groups
+    group:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - students
+      - profs
+
+  - name: manage users and group membership
+    user:
+      name: "{{ item.name }}"
+      state: present
+      groups: "{{ item.groups }}"
+    with_items:
+      - { name: 'linda', groups: 'students' }
+      - { name: 'anna', groups: 'profs' }
