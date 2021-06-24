@@ -1,7 +1,7 @@
 ---
 - name: create users
-  hosts: all 
-  #connection: local
+  hosts: localhost 
+  connection: local
 
   vars:
     myusers:
@@ -22,7 +22,7 @@
     user:
       name: “{{ item[0] }}”
       state: present
-      groups: “{{ item[1] }}”
+      groups: "{{ mygroups }}" 
     with_nested:
       - "{{ myusers }}"
       - "{{ mygroups }}"

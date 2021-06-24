@@ -1,0 +1,12 @@
+---
+#[packages]
+web_package: nginx
+ftp_package: vsftpd
+#db_package: mysql-server
+firewall_package: ufw
+
+#[services]
+web_service: nginx
+ftp_package: vsftpd
+#db_package: mysql
+firewall_service: ufw

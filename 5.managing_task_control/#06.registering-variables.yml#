@@ -6,5 +6,5 @@
     command: who
     register: loggedin
   - shell: echo "user vagrant is logged in" > /tmp/log.txt
-    when: loggedin.stdout.find('vagran222t') != -1   # it means the user ansible should not be absent
+    when: loggedin.stdout.find('vagrant') != -1   # it means the user ansible should not be absent
     

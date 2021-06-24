@@ -1,0 +1,7 @@
+---
+- hosts: all #node1.ansible.local
+
+  tasks:
+    - name: role install and configure the services
+      import_role:
+        name: role-install

@@ -11,12 +11,12 @@
         - wireshark
       tags:
         - net_analysis
-    - name: install lamp 
+    - name: install lamp packages
       package:
         name: "{{ item }}"
         state: present
       with_items:
         - mariadb-server
-        - httpd
+        - nginx
       tags:
         - lamp

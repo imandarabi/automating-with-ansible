@@ -1,6 +1,9 @@
 ---
 - name: clean up all
   hosts: all
+  vars:
+    pkg: ['httpd', 'vsftpd']
+    
   tasks:
   - name: remove services
     apt:
@@ -9,6 +12,12 @@
     with_items:
       - httpd
       - vsftpd
+
+#  - name: remove services
+#    apt:
+#      name: "{{ pkg }}"
+#      state: absent
+
   - name: remove files
     file:
       path: "{{ item }}"

@@ -1,0 +1,11 @@
+
+
+
+---
+# defaults file for roles/nginx
+packages:
+  - nginx
+
+system_owner: iman.darabi@gmail.com
+
+virtual_host: "myserver.local"

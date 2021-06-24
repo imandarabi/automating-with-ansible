@@ -113,3 +113,218 @@ The offending line appears to be:
 2021-06-19 19:08:22,145 p=353871 u=vagrant n=ansible | PLAY RECAP *****************************************************************************************
 2021-06-19 19:08:22,147 p=353871 u=vagrant n=ansible | node1.ansible.local        : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
 2021-06-19 19:08:22,149 p=353871 u=vagrant n=ansible | node2.ansible.local        : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2021-06-20 11:26:40,076 p=2750 u=vagrant n=ansible | node1.ansible.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname node1.ansible.local: Temporary failure in name resolution",
+    "unreachable": true
+}
+2021-06-20 11:26:40,083 p=2750 u=vagrant n=ansible | node2.ansible.local | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname node2.ansible.local: Temporary failure in name resolution",
+    "unreachable": true
+}
+2021-06-20 11:27:49,247 p=2860 u=vagrant n=ansible | node1.ansible.local | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2021-06-20 11:27:49,261 p=2860 u=vagrant n=ansible | node2.ansible.local | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2021-06-24 09:58:50,430 p=81171 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  found a tab character that violate indentation
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/02.uricheck.yml': line 7, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        url: http://ubuntu.com
+	return_content: yes
+^ here
+There appears to be a tab character at the start of the line.
+
+YAML does not use tabs for formatting. Tabs should be replaced with spaces.
+
+For example:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+#    ^--- there is a tab there.
+
+Should be written as:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+# ^--- all spaces here.
+
+2021-06-24 09:59:10,684 p=81193 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  did not find expected key
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/02.uricheck.yml': line 12, column 20, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+      fail:
+        msg: 'not' the right content'
+                   ^ here
+We could be wrong, but this one looks like it might be an issue with
+unbalanced quotes. If starting a value with a quote, make sure the
+line ends with the same set of quotes. For instance this arbitrary
+example:
+
+    foo: "bad" "wolf"
+
+Could be written as:
+
+    foo: '"bad" "wolf"'
+
+2021-06-24 09:59:23,103 p=81209 u=vagrant n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: ansible2.example.com
+
+2021-06-24 09:59:23,104 p=81209 u=vagrant n=ansible | PLAY [check URL] ***************************************************************************************
+2021-06-24 09:59:23,104 p=81209 u=vagrant n=ansible | skipping: no hosts matched
+2021-06-24 09:59:23,104 p=81209 u=vagrant n=ansible | PLAY RECAP *********************************************************************************************
+2021-06-24 09:59:54,361 p=81242 u=vagrant n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: node2.example.com
+
+2021-06-24 09:59:54,361 p=81242 u=vagrant n=ansible | PLAY [check URL] ***************************************************************************************
+2021-06-24 09:59:54,362 p=81242 u=vagrant n=ansible | skipping: no hosts matched
+2021-06-24 09:59:54,362 p=81242 u=vagrant n=ansible | PLAY RECAP *********************************************************************************************
+2021-06-24 10:00:10,839 p=81260 u=vagrant n=ansible | PLAY [check URL] ***************************************************************************************
+2021-06-24 10:00:10,852 p=81260 u=vagrant n=ansible | TASK [Gathering Facts] *********************************************************************************
+2021-06-24 10:00:12,960 p=81260 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:00:12,976 p=81260 u=vagrant n=ansible | TASK [uri] *********************************************************************************************
+2021-06-24 10:00:15,955 p=81260 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:00:15,973 p=81260 u=vagrant n=ansible | TASK [Fail if ubuntu is not in the page content] *******************************************************
+2021-06-24 10:00:16,076 p=81260 u=vagrant n=ansible | fatal: [node2.ansible.local]: FAILED! => {"msg": "The conditional check 'ubuntu not in webpage.content' failed. The error was: error while evaluating conditional (ubuntu not in webpage.content): Unable to look up a name or access an attribute in template string ({% if ubuntu not in webpage.content %} True {% else %} False {% endif %}).\nMake sure your variable name does not contain invalid characters like '-': 'in <string>' requires string as left operand, not AnsibleUndefined\n\nThe error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/02.uricheck.yml': line 10, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n    - name: Fail if ubuntu is not in the page content\n      ^ here\n"}
+2021-06-24 10:00:16,078 p=81260 u=vagrant n=ansible | PLAY RECAP *********************************************************************************************
+2021-06-24 10:00:16,079 p=81260 u=vagrant n=ansible | node2.ansible.local        : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2021-06-24 10:06:53,927 p=81637 u=vagrant n=ansible | PLAY [check URL] ***************************************************************************************
+2021-06-24 10:06:53,940 p=81637 u=vagrant n=ansible | TASK [Gathering Facts] *********************************************************************************
+2021-06-24 10:06:56,735 p=81637 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:06:56,742 p=81637 u=vagrant n=ansible | TASK [uri] *********************************************************************************************
+2021-06-24 10:06:58,692 p=81637 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:06:58,699 p=81637 u=vagrant n=ansible | TASK [Fail if ubuntu is not in the page content] *******************************************************
+2021-06-24 10:06:58,740 p=81637 u=vagrant n=ansible | fatal: [node2.ansible.local]: FAILED! => {"msg": "The conditional check 'ubuntu not in webpage.content' failed. The error was: error while evaluating conditional (ubuntu not in webpage.content): Unable to look up a name or access an attribute in template string ({% if ubuntu not in webpage.content %} True {% else %} False {% endif %}).\nMake sure your variable name does not contain invalid characters like '-': 'in <string>' requires string as left operand, not AnsibleUndefined\n\nThe error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/02.uricheck.yml': line 10, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n    - name: Fail if ubuntu is not in the page content\n      ^ here\n"}
+2021-06-24 10:06:58,742 p=81637 u=vagrant n=ansible | PLAY RECAP *********************************************************************************************
+2021-06-24 10:06:58,742 p=81637 u=vagrant n=ansible | node2.ansible.local        : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2021-06-24 10:07:25,496 p=81696 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  did not find expected key
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/02.uricheck.yml': line 13, column 22, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        msg: 'not the right content'
+      when: "ubuntu" not in webpage.content
+                     ^ here
+This one looks easy to fix. It seems that there is a value started
+with a quote, and the YAML parser is expecting to see the line ended
+with the same kind of quote. For instance:
+
+    when: "ok" in result.stdout
+
+Could be written as:
+
+   when: '"ok" in result.stdout'
+
+Or equivalently:
+
+   when: "'ok' in result.stdout"
+
+2021-06-24 10:07:45,967 p=81718 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  did not find expected key
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/02.uricheck.yml': line 13, column 22, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        msg: 'not the right content'
+      when: "ubuntu" not in webpage.content
+                     ^ here
+This one looks easy to fix. It seems that there is a value started
+with a quote, and the YAML parser is expecting to see the line ended
+with the same kind of quote. For instance:
+
+    when: "ok" in result.stdout
+
+Could be written as:
+
+   when: '"ok" in result.stdout'
+
+Or equivalently:
+
+   when: "'ok' in result.stdout"
+
+2021-06-24 10:08:11,089 p=81740 u=vagrant n=ansible | PLAY [check URL] ***************************************************************************************
+2021-06-24 10:08:11,102 p=81740 u=vagrant n=ansible | TASK [Gathering Facts] *********************************************************************************
+2021-06-24 10:08:14,082 p=81740 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:08:14,090 p=81740 u=vagrant n=ansible | TASK [uri] *********************************************************************************************
+2021-06-24 10:08:16,356 p=81740 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:08:16,364 p=81740 u=vagrant n=ansible | TASK [Fail if ubuntu is not in the page content] *******************************************************
+2021-06-24 10:08:16,406 p=81740 u=vagrant n=ansible | skipping: [node2.ansible.local]
+2021-06-24 10:08:16,408 p=81740 u=vagrant n=ansible | PLAY RECAP *********************************************************************************************
+2021-06-24 10:08:16,409 p=81740 u=vagrant n=ansible | node2.ansible.local        : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2021-06-24 10:13:45,016 p=82060 u=vagrant n=ansible | PLAY [check URL] ***************************************************************************************
+2021-06-24 10:13:45,028 p=82060 u=vagrant n=ansible | TASK [Gathering Facts] *********************************************************************************
+2021-06-24 10:13:46,920 p=82060 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:13:46,927 p=82060 u=vagrant n=ansible | TASK [uri] *********************************************************************************************
+2021-06-24 10:13:49,320 p=82060 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:13:49,327 p=82060 u=vagrant n=ansible | TASK [Fail if ubuntu is not in the page content] *******************************************************
+2021-06-24 10:13:49,372 p=82060 u=vagrant n=ansible | fatal: [node2.ansible.local]: FAILED! => {"changed": false, "msg": "not the right content"}
+2021-06-24 10:13:49,374 p=82060 u=vagrant n=ansible | PLAY RECAP *********************************************************************************************
+2021-06-24 10:13:49,374 p=82060 u=vagrant n=ansible | node2.ansible.local        : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2021-06-24 10:14:09,613 p=82129 u=vagrant n=ansible | ERROR! Syntax Error while loading YAML.
+  found character that cannot start any token
+
+The error appears to be in '/home/vagrant/automating-with-ansible/7.troubleshooting_ansible/03.assert.yml': line 11, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+        that:
+	  - hosts.stat.exists
+^ here
+There appears to be a tab character at the start of the line.
+
+YAML does not use tabs for formatting. Tabs should be replaced with spaces.
+
+For example:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+#    ^--- there is a tab there.
+
+Should be written as:
+    - name: update tooling
+      vars:
+        version: 1.2.3
+# ^--- all spaces here.
+
+2021-06-24 10:14:26,622 p=82148 u=vagrant n=ansible | PLAY [test for file existence] *************************************************************************
+2021-06-24 10:14:26,635 p=82148 u=vagrant n=ansible | TASK [Gathering Facts] *********************************************************************************
+2021-06-24 10:14:28,139 p=82148 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:14:28,979 p=82148 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-24 10:14:28,985 p=82148 u=vagrant n=ansible | TASK [stat] ********************************************************************************************
+2021-06-24 10:14:29,416 p=82148 u=vagrant n=ansible | ok: [node2.ansible.local]
+2021-06-24 10:14:29,449 p=82148 u=vagrant n=ansible | ok: [node1.ansible.local]
+2021-06-24 10:14:29,458 p=82148 u=vagrant n=ansible | TASK [assert] ******************************************************************************************
+2021-06-24 10:14:29,519 p=82148 u=vagrant n=ansible | ok: [node1.ansible.local] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2021-06-24 10:14:29,540 p=82148 u=vagrant n=ansible | ok: [node2.ansible.local] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2021-06-24 10:14:29,542 p=82148 u=vagrant n=ansible | PLAY RECAP *********************************************************************************************
+2021-06-24 10:14:29,543 p=82148 u=vagrant n=ansible | node1.ansible.local        : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2021-06-24 10:14:29,543 p=82148 u=vagrant n=ansible | node2.ansible.local        : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

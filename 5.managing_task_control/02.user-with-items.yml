@@ -6,7 +6,7 @@
   - name: create groups
     group:
       name: "{{ item }}"
-      state: present
+#      state: present
     with_items:
       - students
       - profs
@@ -19,3 +19,15 @@
     with_items:
       - { name: 'linda', groups: 'students' }
       - { name: 'anna', groups: 'profs' }
+     
+  - name: remove users
+    group:
+      name: "{{ item }}"
+      state: absent
+    with_items: ['students', 'profs']
+
+  - name: remove groups
+    user:
+      name: "{{ item }}"
+      state: absent
+    with_items: ['linda', 'anna']

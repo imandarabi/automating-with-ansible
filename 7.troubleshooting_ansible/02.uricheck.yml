@@ -1,13 +1,13 @@
 ---
 - name: check URL
-  hosts: ansible2.example.com
+  hosts: node2.ansible.local
   tasks:
     - uri:
         url: http://ubuntu.com
-	return_content: yes
+        return_content: yes
       register: webpage
 
     - name: Fail if ubuntu is not in the page content
       fail:
-        msg: 'not' the right content'
-      when: "ubuntu not in webpage.content"
+        msg: 'not the right content'
+      when: '"ubun)))tu" not in webpage.content'

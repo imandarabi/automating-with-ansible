@@ -1,0 +1,13 @@
+---
+# vars file for lab
+#[packages]
+web_package: httpd
+ftp_package: vsftpd
+db_package: mariadb-server
+firewall_package: firewalld
+
+#[services]
+web_service: httpd
+ftp_service: vsftpd
+db_service: maridb
+firewal_service: firewalld

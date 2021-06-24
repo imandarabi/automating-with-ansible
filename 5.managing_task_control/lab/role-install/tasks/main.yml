@@ -1,0 +1,41 @@
+---
+# tasks file for lab
+
+- name: deploy and start Apache
+  include_vars: vars/{{ ansible_os_family }}.yml
+
+- name: install and update latest packages
+  package:
+    name:
+      - "{{ web_package }}"
+      - "{{ firewall_package }}"
+      - "{{ ftp_package }}"
+#      - "{{ db_package }}"
+    state: latest
+  notify:
+    - success
+
+- name: start and enable {{ firewall_service }}
+  service:
+    name: "{{ firewall_service }}"
+    enabled: true
+    state: started
+
+- name: start and enable {{ web_service }}
+  service:
+    name: "{{ web_service }}"
+    enabled: true
+    state: started
+
+- include_tasks: ubuntu.yml
+  when: ansible_os_family == 'Ubuntu'
+
+- include_tasks: ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Print a message )))))))))))))  "{{ ansible_os_family }}"
+  ansible.builtin.debug:
+    msg: 'I execute normally'

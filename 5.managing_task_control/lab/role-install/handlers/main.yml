@@ -1,0 +1,5 @@
+---
+# handlers file for lab
+- name: success                     
+  debug:                                                   
+    msg: package installation on {{ inventory_hostname }} successful    
